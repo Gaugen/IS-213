@@ -201,11 +201,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void buttonOnClick(View v) {
-        Button button=(Button) v;
-        startActivity(new Intent(getApplicationContext(), Activity2.class));
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -219,6 +214,3 @@ public class MainActivity extends Activity {
     }
 
 }
-
-
-

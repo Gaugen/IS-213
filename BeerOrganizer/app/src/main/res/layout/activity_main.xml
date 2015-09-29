@@ -94,10 +94,6 @@
                         android:text="New Button"
                         android:id="@+id/button"
                         android:layout_gravity="center_horizontal"
-<<<<<<< HEAD
-                        android:clickable="false"
-=======
->>>>>>> origin/emu-test
                         android:onClick="buttonOnClick" />
                 </LinearLayout>
 
