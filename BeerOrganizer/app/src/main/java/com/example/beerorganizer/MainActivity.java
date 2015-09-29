@@ -207,4 +207,9 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    public void buttonOnClick(View v) {
+        Button orgBack=(Button) v;
+        startActivity(new Intent(getApplicationContext(),Activity2.class));
+    }
 }
