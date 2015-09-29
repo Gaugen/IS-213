@@ -201,24 +201,10 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void buttonOnClick(View v) {
-        Button button=(Button) v;
-        startActivity(new Intent(getApplicationContext(), Activity2.class));
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-    public void buttonOnClick(View v) {
-        Button button=(Button) v;
-        startActivity(new Intent(getApplicationContext(), MainView.class));
-    }
-
 }
-
-
-
