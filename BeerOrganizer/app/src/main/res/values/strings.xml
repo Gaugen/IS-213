@@ -3,4 +3,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
+    <string name="title_activity_2">MainActivity2</string>
+=======
+    <string name="title_activity_main_view">MainView</string>
+>>>>>>> origin/emu-test
 </resources>
