@@ -87,6 +87,14 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:enabled="false" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Button"
+                        android:id="@+id/button"
+                        android:layout_gravity="center_horizontal"
+                        android:onClick="buttonOnClick" />
                 </LinearLayout>
 
                 <LinearLayout
