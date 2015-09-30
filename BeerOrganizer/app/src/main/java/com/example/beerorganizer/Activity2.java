@@ -74,6 +74,7 @@ public class Activity2 extends AppCompatActivity {
     public void buttonOnClick(View v) {
         Button chooseBeerBtn=(Button) v;
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        finish();
     }
 
 }

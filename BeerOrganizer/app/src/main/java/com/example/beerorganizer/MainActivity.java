@@ -52,6 +52,7 @@ public class MainActivity extends Activity {
         dbHandler = new DatabaseHandler(getApplicationContext());
 
         registerForContextMenu(contactListView);
+
         contactListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -211,5 +212,6 @@ public class MainActivity extends Activity {
     public void buttonOnClick(View v) {
         Button orgBack=(Button) v;
         startActivity(new Intent(getApplicationContext(),Activity2.class));
+        finish();
     }
 }

@@ -15,6 +15,39 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
+        <ImageButton
+            android:src="@drawable/drink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/drinkCount"
+            android:minWidth="125dip"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="89dp" />
+
+        <ImageButton
+            android:src="@drawable/beer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/beerCount"
+            android:minWidth="125dip"
+            android:gravity="center"
+            android:layout_alignTop="@+id/drinkCount"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Velg Øl"
+            android:id="@+id/chooseBeerBtn"
+            android:onClick="buttonOnClick"
+            android:layout_below="@+id/beerCount"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <TextView
@@ -37,49 +70,5 @@
         android:textSize="25dip"
         android:textColor="#ffffff"
         android:gravity="center" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="false" />
-
-    <ImageButton
-        android:src="@drawable/beer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/beerCount"
-        android:minWidth="125dip"
-        android:gravity="center"
-        android:layout_marginTop="89dp"
-        android:layout_marginRight="42dp"
-        android:layout_marginEnd="42dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageButton
-        android:src="@drawable/drink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/drinkCount"
-        android:minWidth="125dip"
-        android:gravity="center"
-        android:layout_alignTop="@+id/beerCount"
-        android:layout_toLeftOf="@+id/beerCount"
-        android:layout_toStartOf="@+id/beerCount" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Velg Øl"
-        android:id="@+id/chooseBeerBtn"
-        android:onClick="buttonOnClick"
-        android:layout_below="@+id/beerCount"
-        android:layout_alignRight="@+id/beerCount"
-        android:layout_alignEnd="@+id/beerCount" />
 
 </RelativeLayout>
