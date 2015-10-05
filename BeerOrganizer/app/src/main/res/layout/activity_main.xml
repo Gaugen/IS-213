@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:ems="10"
-                        android:id="@+id/txtPhone"
+                        android:id="@+id/txtPrice"
                         android:layout_marginTop="15dp"
                         android:layout_gravity="center"
                         android:hint="Price" />
@@ -74,7 +74,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:id="@+id/txtEmail"
+                        android:id="@+id/txtStore"
                         android:layout_gravity="center"
                         android:hint="Butikk"
                         android:layout_marginTop="15dp" />
@@ -98,7 +98,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tabContactList"
+                    android:id="@+id/tabDrinkList"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical">

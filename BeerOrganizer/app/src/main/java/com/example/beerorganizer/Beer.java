@@ -5,13 +5,13 @@ import android.net.Uri;
 /**
  * Created by steff_000 on 04.09.2015.
  */
-public class Contact {
+public class Beer {
 
     private String _name, _phone, _email;
     private Uri _imageUri;
     private int _id;
 
-    public Contact (int id, String name, String phone, String email, Uri imageUri) {
+    public Beer(int id, String name, String phone, String email, Uri imageUri) {
         _id = id;
         _name = name;
         _phone = phone;
@@ -21,13 +21,13 @@ public class Contact {
 
     public int getId() {return _id;}
 
-    public String getName() {
+    public String getBeerName() {
         return _name;
     }
 
-    public String getPhone() { return _phone; }
+    public String getBeerPrice() { return _phone; }
 
-    public String getEmail() { return _email; }
+    public String getBeetStore() { return _email; }
 
     public Uri getImageUri() { return _imageUri; }
 }
