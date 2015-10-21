@@ -1,0 +1,71 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditBeer"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Beer Editor"
+        android:id="@+id/lblCreatorTitle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dip" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imgViewContactImage"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/no_user_logo" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/txtName"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dip"
+        android:hint="Beer Name" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/txtPrice"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:hint="Price" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtStore"
+        android:layout_gravity="center"
+        android:hint="Store"
+        android:layout_marginTop="15dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:id="@+id/btnAdd"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:enabled="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/orgBack"
+        android:layout_gravity="center_horizontal"
+        android:onClick="buttonOnClick" />
+</LinearLayout>
