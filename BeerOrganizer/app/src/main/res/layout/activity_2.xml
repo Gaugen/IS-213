@@ -42,12 +42,24 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Velg Øl"
+            android:text="Choose beer!"
             android:id="@+id/chooseBeerBtn"
             android:onClick="buttonOnClick"
             android:layout_below="@+id/beerCount"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose drink"
+            android:id="@+id/chooseDrinkBtn"
+            android:onClick="buttonOnClick"
+            android:layout_below="@+id/drinkCount"
+            android:layout_alignRight="@+id/drinkCount"
+            android:layout_alignEnd="@+id/drinkCount" />
+
     </RelativeLayout>
 
     <TextView

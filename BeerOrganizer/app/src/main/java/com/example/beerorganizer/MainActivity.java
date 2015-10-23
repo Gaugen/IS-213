@@ -47,7 +47,7 @@ public class MainActivity extends Activity {
         priceTxt = (EditText) findViewById(R.id.txtPrice);
         storeTxt = (EditText) findViewById(R.id.txtStore);
         beerListView = (ListView) findViewById(R.id.listView);
-        beerImageImgView = (ImageView) findViewById(R.id.imgViewContactImage);
+        beerImageImgView = (ImageView) findViewById(R.id.imgViewBeerImage);
         dbHandler = new DatabaseHandler(getApplicationContext());
 
         registerForContextMenu(beerListView);
@@ -65,12 +65,12 @@ public class MainActivity extends Activity {
         tabHost.setup();
 
         TabHost.TabSpec tabSpec = tabHost.newTabSpec("creator");
-        tabSpec.setContent(R.id.tabCreator);
+        tabSpec.setContent(R.id.tabBeerCreator);
         tabSpec.setIndicator("Creator");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("list");
-        tabSpec.setContent(R.id.tabDrinkList);
+        tabSpec.setContent(R.id.tabBeerList);
         tabSpec.setIndicator("List");
         tabHost.addTab(tabSpec);
 
@@ -201,7 +201,7 @@ public class MainActivity extends Activity {
             TextView phone = (TextView) view.findViewById(R.id.phoneNumber);
             phone.setText(currentBeer.getBeerPrice());
             TextView email = (TextView) view.findViewById(R.id.emailAddress);
-            email.setText(currentBeer.getBeetStore());
+            email.setText(currentBeer.getBeerStore());
             ImageView ivContactImage = (ImageView) view.findViewById(R.id.ivContactImage);
             ivContactImage.setImageURI(currentBeer.getImageUri());
             return view;

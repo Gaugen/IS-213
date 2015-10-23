@@ -46,7 +46,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         values.put(KEY_BEER_NAME, beer.getBeerName());
         values.put(KEY_BEER_PRICE, beer.getBeerPrice());
-        values.put(KEY_BEER_STORE, beer.getBeetStore());
+        values.put(KEY_BEER_STORE, beer.getBeerStore());
         values.put(KEY_IMAGEURI, beer.getImageUri().toString());
 
         db.insert(TABLE_BEERS, null, values);
@@ -97,7 +97,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         values.put(KEY_BEER_NAME, beer.getBeerName());
         values.put(KEY_BEER_PRICE, beer.getBeerPrice());
-        values.put(KEY_BEER_STORE, beer.getBeetStore());
+        values.put(KEY_BEER_STORE, beer.getBeerStore());
         values.put(KEY_IMAGEURI, beer.getImageUri().toString());
 
         int rowsAffected = db.update(TABLE_BEERS, values, KEY_BEER_ID + "=?", new String[]{String.valueOf(beer.getId())});

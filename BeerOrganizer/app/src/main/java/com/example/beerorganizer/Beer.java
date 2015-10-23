@@ -7,27 +7,27 @@ import android.net.Uri;
  */
 public class Beer {
 
-    private String _name, _phone, _email;
+    private String _beerName, _beerPrice, _beerStore;
     private Uri _imageUri;
-    private int _id;
+    private int _beerId;
 
-    public Beer(int id, String name, String phone, String email, Uri imageUri) {
-        _id = id;
-        _name = name;
-        _phone = phone;
-        _email = email;
+    public Beer(int id, String name, String price, String store, Uri imageUri) {
+        _beerId = id;
+        _beerName = name;
+        _beerPrice = price;
+        _beerStore = store;
         _imageUri = imageUri;
     }
 
-    public int getId() {return _id;}
+    public int getId() {return _beerId;}
 
     public String getBeerName() {
-        return _name;
+        return _beerName;
     }
 
-    public String getBeerPrice() { return _phone; }
+    public String getBeerPrice() { return _beerPrice; }
 
-    public String getBeetStore() { return _email; }
+    public String getBeerStore() { return _beerStore; }
 
     public Uri getImageUri() { return _imageUri; }
 }
