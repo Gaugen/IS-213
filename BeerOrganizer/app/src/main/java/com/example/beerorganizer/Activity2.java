@@ -71,10 +71,24 @@ public class Activity2 extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonOnClick(View v) {
-        Button chooseBeerBtn=(Button) v;
-        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-        finish();
+    public void openDrinkActivity(View view) {
+// Do something in response to button
+        Intent intent = new Intent(this, DrinkCreator.class);
+        startActivity(intent);
+
     }
+
+    public void openBeerActivity(View view) {
+// Do something in response to button
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+    }
+
+   // public void buttonOnClick(View v) {
+     //   Button chooseBeerBtn=(Button) v;
+     //   startActivity(new Intent(getApplicationContext(),MainActivity.class));
+    //    finish();
+   // }
 
 }

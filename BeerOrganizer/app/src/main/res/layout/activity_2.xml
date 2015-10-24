@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Choose beer!"
             android:id="@+id/chooseBeerBtn"
-            android:onClick="buttonOnClick"
+            android:onClick="openBeerActivity"
             android:layout_below="@+id/beerCount"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:text="Choose drink"
             android:id="@+id/chooseDrinkBtn"
-            android:onClick="buttonOnClick"
+            android:onClick="openDrinkActivity"
             android:layout_below="@+id/drinkCount"
             android:layout_alignRight="@+id/drinkCount"
             android:layout_alignEnd="@+id/drinkCount" />

@@ -137,9 +137,19 @@ public class DrinkCreator extends Activity {
         }
     }
 
+    public void buttonOnClick(View v) {
+        Button orgBack=(Button) v;
+        startActivity(new Intent(getApplicationContext(),Activity2.class));
+        finish();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 }
+
+
+
+
