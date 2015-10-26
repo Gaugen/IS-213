@@ -75,6 +75,7 @@ public class Activity2 extends AppCompatActivity {
 // Do something in response to button
         Intent intent = new Intent(this, DrinkCreator.class);
         startActivity(intent);
+        finish();
 
     }
 
@@ -82,7 +83,7 @@ public class Activity2 extends AppCompatActivity {
 // Do something in response to button
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
+        finish();
     }
 
    // public void buttonOnClick(View v) {

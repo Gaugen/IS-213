@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     Uri imageUri = Uri.parse("android.resource://org.intracode.beerorganizer/drawable/no_user_logo.png");
     DatabaseHandler dbHandler;
     int longClickedItemIndex;
-    ArrayAdapter<Beer> drinkAdapter;
+    ArrayAdapter<Beer> beerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
                 if (!contactExists(beer)) {
                     dbHandler.createBeer(beer);
                     Beers.add(beer);
-                    drinkAdapter.notifyDataSetChanged();
+                    beerAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), String.valueOf(nameTxt.getText()) + " has been added to your Beer list!", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getApplicationContext(), "Your Beer has been created!", Toast.LENGTH_SHORT).show();
                     return;
@@ -151,7 +151,7 @@ public class MainActivity extends Activity {
             case DELETE:
                 dbHandler.deleteBeer(Beers.get(longClickedItemIndex));
                 Beers.remove(longClickedItemIndex);
-                drinkAdapter.notifyDataSetChanged();
+                beerAdapter.notifyDataSetChanged();
                 break;
         }
 
@@ -179,8 +179,8 @@ public class MainActivity extends Activity {
     }
 
     private void populateList() {
-        drinkAdapter = new ContactListAdapter();
-        beerListView.setAdapter(drinkAdapter);
+        beerAdapter = new ContactListAdapter();
+        beerListView.setAdapter(beerAdapter);
     }
 
 
@@ -202,11 +202,18 @@ public class MainActivity extends Activity {
             phone.setText(currentBeer.getBeerPrice());
             TextView email = (TextView) view.findViewById(R.id.emailAddress);
             email.setText(currentBeer.getBeerStore());
-            ImageView ivContactImage = (ImageView) view.findViewById(R.id.ivContactImage);
-            ivContactImage.setImageURI(currentBeer.getImageUri());
+            ImageView ivBeerImage = (ImageView) view.findViewById(R.id.ivBeerImage);
+            ivBeerImage.setImageURI(currentBeer.getImageUri());
             return view;
         }
     }
+
+    public void buttonOnClick(View v) {
+        Button orgBack=(Button) v;
+        startActivity(new Intent(getApplicationContext(),Activity2.class));
+        finish();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -215,9 +222,4 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    public void buttonOnClick(View v) {
-        Button orgBack=(Button) v;
-        startActivity(new Intent(getApplicationContext(),Activity2.class));
-        finish();
-    }
 }

@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:id="@+id/ivContactImage" />
+        android:id="@+id/ivBeerImage" />
 
     <LinearLayout
         android:orientation="vertical"

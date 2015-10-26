@@ -2,6 +2,8 @@ package com.example.beerorganizer;
 
 import android.net.Uri;
 
+import java.net.URI;
+
 /**
  * Created by larsenj on 23.10.2015.
  */
@@ -10,12 +12,12 @@ public class DrinkList {
     private Uri _imageUri;
     private int _drinkId;
 
-    public DrinkList(String drinkName, String drinkPrice, String drinkStore) {
-        //_drinkId = id;
+    public DrinkList(int id, String drinkName, String drinkPrice, String drinkStore, Uri imageUri) {
+        _drinkId = id;
         _drinkName = drinkName;
         _drinkPrice = drinkPrice;
         _drinkStore = drinkStore;
-        //_imageUri = imageUri;
+        _imageUri = imageUri;
     }
 
     public int getId() {return _drinkId;}
