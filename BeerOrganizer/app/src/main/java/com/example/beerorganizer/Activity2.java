@@ -26,6 +26,7 @@ public class Activity2 extends AppCompatActivity {
         final TextView sumTextView = (TextView) findViewById(R.id.textSum);
         final ImageButton countButton = (ImageButton) findViewById(R.id.beerCount);
         final ImageButton drinkButton = (ImageButton) findViewById(R.id.drinkCount);
+        final Button resetButton = (Button) findViewById(R.id.resetButton);
 
 
         countButton.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +47,16 @@ public class Activity2 extends AppCompatActivity {
                 countTextView.setText("Du har drukket " + mCount + " enheter!");
                 sumTextView.setText("Sum:" + mSum + "!");
             }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+
+        public void onClick (View view) {
+            mSum = 0;
+            mCount = 0;
+            sumTextView.setText("Sum:" + mSum + "!");
+            countTextView.setText("Du har drukket " + mCount + " enheter!");
+        }
         });
     }
 
@@ -85,6 +96,8 @@ public class Activity2 extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
 
    // public void buttonOnClick(View v) {
      //   Button chooseBeerBtn=(Button) v;

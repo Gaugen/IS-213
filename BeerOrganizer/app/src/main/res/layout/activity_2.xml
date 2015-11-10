@@ -60,6 +60,16 @@
             android:layout_alignRight="@+id/drinkCount"
             android:layout_alignEnd="@+id/drinkCount" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset Sum"
+            android:id="@+id/resetButton"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/chooseDrinkBtn"
+            android:layout_alignEnd="@+id/chooseDrinkBtn"
+            android:onClick="resetOnClick" />
+
     </RelativeLayout>
 
     <TextView
