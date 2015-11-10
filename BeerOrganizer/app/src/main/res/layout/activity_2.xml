@@ -65,10 +65,10 @@
             android:layout_height="wrap_content"
             android:text="Reset Sum"
             android:id="@+id/resetButton"
+            android:onClick="resetOnClick"
             android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/chooseDrinkBtn"
-            android:layout_alignEnd="@+id/chooseDrinkBtn"
-            android:onClick="resetOnClick" />
+            android:layout_alignLeft="@+id/chooseDrinkBtn"
+            android:layout_alignStart="@+id/chooseDrinkBtn" />
 
     </RelativeLayout>
 
