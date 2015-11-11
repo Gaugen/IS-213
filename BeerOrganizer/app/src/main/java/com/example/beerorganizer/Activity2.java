@@ -32,8 +32,9 @@ public class Activity2 extends AppCompatActivity {
         countButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+
                 mCount++;
-                mSum += 72;
+                mSum += ResourceManager.getInstance().cost;
                 countTextView.setText("Du har drukket " + mCount + " enheter!");
                 sumTextView.setText("Sum:" + mSum + "!");
             }
