@@ -50,19 +50,19 @@ public class DrinkCreator extends Activity {
         dNameTxt = (EditText) findViewById(R.id.txtDrinkName);
         dPriceTxt = (EditText) findViewById(R.id.txtDrinkPrice);
         dStoreTxt = (EditText) findViewById(R.id.txtDrinkStore);
-        drinkListView = (ListView) findViewById(R.id.listView);
+        drinkListView = (ListView) findViewById(R.id.listDrinkView);
         drinkImageImgview = (ImageView) findViewById(R.id.imgViewDrinkImage);
         dbHandler = new DatabaseHandler(getApplicationContext());
 
-//        registerForContextMenu(drinkListView);
+        registerForContextMenu(drinkListView);
 
-//        drinkListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                longClickedItemIndex = position;
-//                return false;
-//            }
-//        });
+        drinkListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                longClickedItemIndex = position;
+                return false;
+            }
+        });
 
         TabHost tabHost2 = (TabHost) findViewById(R.id.tabHost2);
 

@@ -12,10 +12,6 @@ import android.widget.TextView;
 
 public class Activity2 extends AppCompatActivity {
 
-    // Private member field to keep track of the count
-    private int mCount = 0;
-    private int mSum = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,31 +28,37 @@ public class Activity2 extends AppCompatActivity {
         countButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-
+                /*
                 mCount++;
-                mSum += ResourceManager.getInstance().cost;
+                mSum += ResourceManager.getInstance().cost_beer;
                 countTextView.setText("Du har drukket " + mCount + " enheter!");
                 sumTextView.setText("Sum:" + mSum + "!");
+                */
+                //System.out.println("Beer name: nøgne ø, pris: 399, butikk: rema. ");
+                ResourceManager.getInstance().count++;
+                ResourceManager.getInstance().sum += ResourceManager.getInstance().cost_beer;
+                countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
+                sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
             }
         });
 
         drinkButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                mCount++;
-                mSum += 96;
-                countTextView.setText("Du har drukket " + mCount + " enheter!");
-                sumTextView.setText("Sum:" + mSum + "!");
+                ResourceManager.getInstance().count++;
+                ResourceManager.getInstance().sum += ResourceManager.getInstance().cost_drink;
+                countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
+                sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
             }
         });
 
         resetButton.setOnClickListener(new View.OnClickListener() {
 
         public void onClick (View view) {
-            mSum = 0;
-            mCount = 0;
-            sumTextView.setText("Sum:" + mSum + "!");
-            countTextView.setText("Du har drukket " + mCount + " enheter!");
+            ResourceManager.getInstance().sum = 0;
+            ResourceManager.getInstance().count = 0;
+            countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
+            sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
         }
         });
     }

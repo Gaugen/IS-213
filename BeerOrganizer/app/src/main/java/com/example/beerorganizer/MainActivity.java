@@ -142,8 +142,7 @@ public class MainActivity extends Activity {
         switch (item.getItemId()) {
             case STANDARD:
                 // TODO: Implement standardizing a beer
-                //System.out.println(priceTxt.toString());
-                //ResourceManager.getInstance().cost = Integer.parseInt(priceTxt.toString());
+                ResourceManager.getInstance().cost_beer = Integer.parseInt(Beers.get(longClickedItemIndex).getBeerPrice());
                 break;
             case EDIT:
                 //dbHandler.editBeer(Beers.get(longClickedItemIndex));

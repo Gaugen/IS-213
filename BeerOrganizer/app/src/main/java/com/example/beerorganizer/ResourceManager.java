@@ -11,5 +11,8 @@ public class ResourceManager {
         return singleton;
     }
 
-    protected static int cost = 0;
+    protected static int cost_beer = 0;
+    protected static int cost_drink = 0;
+    protected static int count = 0;
+    protected static int sum = 0;
 }
