@@ -6,27 +6,27 @@
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:id="@+id/ivBeerImage" />
+        android:id="@+id/ivDrinkImage" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ok">
+        android:id="@+id/ok2">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Beer name"
-            android:id="@+id/contactName"
+            android:text="Drink name"
+            android:id="@+id/drinkName"
             android:layout_gravity="left|center_vertical" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Price"
-            android:id="@+id/phoneNumber"
+            android:id="@+id/drinkPrice"
             android:layout_gravity="left|center_vertical"
             android:layout_marginTop="5dp" />
 
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Butikk"
-            android:id="@+id/emailAddress"
+            android:id="@+id/drinkStore"
             android:layout_gravity="left|center_vertical" />
     </LinearLayout>
 

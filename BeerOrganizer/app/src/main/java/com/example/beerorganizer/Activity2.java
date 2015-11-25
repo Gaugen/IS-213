@@ -12,10 +12,6 @@ import android.widget.TextView;
 
 public class Activity2 extends AppCompatActivity {
 
-    // Private member field to keep track of the count
-    private int mCount = 0;
-    private int mSum = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,26 +22,44 @@ public class Activity2 extends AppCompatActivity {
         final TextView sumTextView = (TextView) findViewById(R.id.textSum);
         final ImageButton countButton = (ImageButton) findViewById(R.id.beerCount);
         final ImageButton drinkButton = (ImageButton) findViewById(R.id.drinkCount);
+        final Button resetButton = (Button) findViewById(R.id.resetButton);
 
 
         countButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+                /*
                 mCount++;
-                mSum += 72;
+                mSum += ResourceManager.getInstance().cost_beer;
                 countTextView.setText("Du har drukket " + mCount + " enheter!");
                 sumTextView.setText("Sum:" + mSum + "!");
+                */
+                //System.out.println("Beer name: nøgne ø, pris: 399, butikk: rema. ");
+                ResourceManager.getInstance().count++;
+                ResourceManager.getInstance().sum += ResourceManager.getInstance().cost_beer;
+                countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
+                sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
             }
         });
 
         drinkButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                mCount++;
-                mSum += 96;
-                countTextView.setText("Du har drukket " + mCount + " enheter!");
-                sumTextView.setText("Sum:" + mSum + "!");
+                ResourceManager.getInstance().count++;
+                ResourceManager.getInstance().sum += ResourceManager.getInstance().cost_drink;
+                countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
+                sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
             }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+
+        public void onClick (View view) {
+            ResourceManager.getInstance().sum = 0;
+            ResourceManager.getInstance().count = 0;
+            countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
+            sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
+        }
         });
     }
 
@@ -71,10 +85,27 @@ public class Activity2 extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonOnClick(View v) {
-        Button chooseBeerBtn=(Button) v;
-        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+    public void openDrinkActivity(View view) {
+// Do something in response to button
+        Intent intent = new Intent(this, DrinkCreator.class);
+        startActivity(intent);
+        finish();
+
+    }
+
+    public void openBeerActivity(View view) {
+// Do something in response to button
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
+
+
+
+   // public void buttonOnClick(View v) {
+     //   Button chooseBeerBtn=(Button) v;
+     //   startActivity(new Intent(getApplicationContext(),MainActivity.class));
+    //    finish();
+   // }
 
 }

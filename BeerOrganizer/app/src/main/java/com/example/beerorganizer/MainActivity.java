@@ -3,7 +3,6 @@ package com.example.beerorganizer;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,17 +26,17 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
-    private static final int EDIT = 0, DELETE = 1;
+    private static final int STANDARD = 0, EDIT = 1, DELETE = 2;
 
 
-    EditText nameTxt, phoneTxt, emailTxt;
-    ImageView contactImageImgView;
-    List<Contact> Contacts = new ArrayList<Contact>();
-    ListView contactListView;
+    EditText nameTxt, priceTxt, storeTxt;
+    ImageView beerImageImgView;
+    List<Beer> Beers = new ArrayList<Beer>();
+    ListView beerListView;
     Uri imageUri = Uri.parse("android.resource://org.intracode.beerorganizer/drawable/no_user_logo.png");
     DatabaseHandler dbHandler;
     int longClickedItemIndex;
-    ArrayAdapter<Contact> contactAdapter;
+    ArrayAdapter<Beer> beerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +44,15 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         nameTxt = (EditText) findViewById(R.id.txtName);
-        phoneTxt = (EditText) findViewById(R.id.txtPhone);
-        emailTxt = (EditText) findViewById(R.id.txtEmail);
-        contactListView = (ListView) findViewById(R.id.listView);
-        contactImageImgView = (ImageView) findViewById(R.id.imgViewContactImage);
+        priceTxt = (EditText) findViewById(R.id.txtPrice);
+        storeTxt = (EditText) findViewById(R.id.txtStore);
+        beerListView = (ListView) findViewById(R.id.listView);
+        beerImageImgView = (ImageView) findViewById(R.id.imgViewBeerImage);
         dbHandler = new DatabaseHandler(getApplicationContext());
 
-        registerForContextMenu(contactListView);
+        registerForContextMenu(beerListView);
 
-        contactListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        beerListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 longClickedItemIndex = position;
@@ -66,12 +65,12 @@ public class MainActivity extends Activity {
         tabHost.setup();
 
         TabHost.TabSpec tabSpec = tabHost.newTabSpec("creator");
-        tabSpec.setContent(R.id.tabCreator);
+        tabSpec.setContent(R.id.tabBeerCreator);
         tabSpec.setIndicator("Creator");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("list");
-        tabSpec.setContent(R.id.tabContactList);
+        tabSpec.setContent(R.id.tabBeerList);
         tabSpec.setIndicator("List");
         tabHost.addTab(tabSpec);
 
@@ -81,11 +80,11 @@ public class MainActivity extends Activity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Contact contact = new Contact(dbHandler.getContactsCount(), String.valueOf(nameTxt.getText()), String.valueOf(phoneTxt.getText()), String.valueOf(emailTxt.getText()), imageUri);
-                if (!contactExists(contact)) {
-                    dbHandler.createContact(contact);
-                    Contacts.add(contact);
-                    contactAdapter.notifyDataSetChanged();
+                Beer beer = new Beer(dbHandler.getBeersCount(), String.valueOf(nameTxt.getText()), String.valueOf(priceTxt.getText()), String.valueOf(storeTxt.getText()), imageUri);
+                if (!contactExists(beer)) {
+                    dbHandler.createBeer(beer);
+                    Beers.add(beer);
+                    beerAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), String.valueOf(nameTxt.getText()) + " has been added to your Beer list!", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getApplicationContext(), "Your Beer has been created!", Toast.LENGTH_SHORT).show();
                     return;
@@ -112,18 +111,18 @@ public class MainActivity extends Activity {
 
             }
         });
-        contactImageImgView.setOnClickListener(new View.OnClickListener(){
+        beerImageImgView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"Select Beer Image"), 1);
+                startActivityForResult(Intent.createChooser(intent, "Select Beer Image"), 1);
             }
         });
 
-        if (dbHandler.getContactsCount() != 0)
-        Contacts.addAll(dbHandler.getAllContacts());
+        if (dbHandler.getBeersCount() != 0)
+        Beers.addAll(dbHandler.getAllBeers());
 
         populateList();
     }
@@ -133,31 +132,39 @@ public class MainActivity extends Activity {
 
         menu.setHeaderIcon(R.drawable.pencil_icon);
         menu.setHeaderTitle("Beer Options");
+        menu.add(Menu.NONE, STANDARD, menu.NONE, "Choose as standard");
         menu.add(Menu.NONE, EDIT, menu.NONE, "Edit Beer");
         menu.add(Menu.NONE, DELETE, menu.NONE, "Delete Beer");
+
     }
 
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case STANDARD:
+                // TODO: Implement standardizing a beer
+                ResourceManager.getInstance().cost_beer = Integer.parseInt(Beers.get(longClickedItemIndex).getBeerPrice());
+                break;
             case EDIT:
+                //dbHandler.editBeer(Beers.get(longClickedItemIndex));
+                //Beers
                 // TODO: Implement editing a contact
                 break;
             case DELETE:
-                dbHandler.deleteContact(Contacts.get(longClickedItemIndex));
-                Contacts.remove(longClickedItemIndex);
-                contactAdapter.notifyDataSetChanged();
+                dbHandler.deleteBeer(Beers.get(longClickedItemIndex));
+                Beers.remove(longClickedItemIndex);
+                beerAdapter.notifyDataSetChanged();
                 break;
         }
 
         return super.onContextItemSelected(item);
     }
 
-    private boolean contactExists(Contact contact) {
-        String name = contact.getName();
-        int contactCount = Contacts.size();
+    private boolean contactExists(Beer beer) {
+        String name = beer.getBeerName();
+        int contactCount = Beers.size();
 
         for (int i = 0; i < contactCount; i++ ) {
-            if (name.compareToIgnoreCase(Contacts.get(i).getName()) == 0)
+            if (name.compareToIgnoreCase(Beers.get(i).getBeerName()) == 0)
                 return true;
         }
         return false;
@@ -167,20 +174,20 @@ public class MainActivity extends Activity {
         if (resCode == RESULT_OK) {
             if (reqCode == 1) {
                 imageUri = data.getData();
-                contactImageImgView.setImageURI(data.getData());
+                beerImageImgView.setImageURI(data.getData());
             }
         }
     }
 
     private void populateList() {
-        contactAdapter = new ContactListAdapter();
-        contactListView.setAdapter(contactAdapter);
+        beerAdapter = new ContactListAdapter();
+        beerListView.setAdapter(beerAdapter);
     }
 
 
-    private class ContactListAdapter extends ArrayAdapter<Contact> {
+    private class ContactListAdapter extends ArrayAdapter<Beer> {
         public ContactListAdapter(){
-            super (MainActivity.this, R.layout.listview_item, Contacts);
+            super (MainActivity.this, R.layout.listview_item, Beers);
         }
 
         @Override
@@ -188,19 +195,26 @@ public class MainActivity extends Activity {
             if (view == null)
                 view = getLayoutInflater().inflate(R.layout.listview_item, parent, false);
 
-            Contact currentContact = Contacts.get(position);
+            Beer currentBeer = Beers.get(position);
 
             TextView name = (TextView) view.findViewById(R.id.contactName);
-            name.setText(currentContact.getName());
+            name.setText(currentBeer.getBeerName());
             TextView phone = (TextView) view.findViewById(R.id.phoneNumber);
-            phone.setText(currentContact.getPhone());
+            phone.setText(currentBeer.getBeerPrice());
             TextView email = (TextView) view.findViewById(R.id.emailAddress);
-            email.setText(currentContact.getEmail());
-            ImageView ivContactImage = (ImageView) view.findViewById(R.id.ivContactImage);
-            ivContactImage.setImageURI(currentContact.getImageUri());
+            email.setText(currentBeer.getBeerStore());
+            ImageView ivBeerImage = (ImageView) view.findViewById(R.id.ivBeerImage);
+            ivBeerImage.setImageURI(currentBeer.getImageUri());
             return view;
         }
     }
+
+    public void buttonOnClick(View v) {
+        Button orgBack=(Button) v;
+        startActivity(new Intent(getApplicationContext(),Activity2.class));
+        finish();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -209,9 +223,4 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    public void buttonOnClick(View v) {
-        Button orgBack=(Button) v;
-        startActivity(new Intent(getApplicationContext(),Activity2.class));
-        finish();
-    }
 }
