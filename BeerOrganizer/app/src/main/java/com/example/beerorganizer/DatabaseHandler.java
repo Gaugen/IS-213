@@ -33,6 +33,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+    //http://developer.android.com/training/basics/data-storage/databases.html
+    // Trenger en methode som laster inn/ leser inn data fra forrige gang appen kjørte, eller lager ny db om det er første gang den blir kjørt.
+    //getWritableDatabase() or getReadableDatabase() sqlite metoder.
+    public void ReadableDatabase(SQLiteDatabase db) {
+
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
