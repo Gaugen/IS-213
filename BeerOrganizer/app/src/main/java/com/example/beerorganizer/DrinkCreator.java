@@ -148,6 +148,7 @@ public class DrinkCreator extends Activity {
         switch (item.getItemId()) {
             case STANDARD:
                 // TODO: Implement standardizing a beer
+                ResourceManager.getInstance().cost_drink = Integer.parseInt(Drinks.get(longClickedItemIndex).getDrinkPrice());
                 break;
             case EDIT:
                 //dbHandler.editBeer(Beers.get(longClickedItemIndex));
