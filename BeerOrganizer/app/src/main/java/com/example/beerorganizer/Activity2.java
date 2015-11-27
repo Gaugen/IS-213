@@ -24,7 +24,8 @@ public class Activity2 extends AppCompatActivity {
         final ImageButton drinkButton = (ImageButton) findViewById(R.id.drinkCount);
         final Button resetButton = (Button) findViewById(R.id.resetButton);
 
-        // Here OnClickListener is used together with a button, which has a counter, showing "enheter" and "sum" each time you press it.
+        // Here OnClickListener is used together with a button, which has a counter, showing "enheter" and "sum" each time you press it. It has functions for 'cost_beer', and 'cost_drink'
+        // Lastly there's a resetButton, used to reset the values you have generated with the button
         countButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
