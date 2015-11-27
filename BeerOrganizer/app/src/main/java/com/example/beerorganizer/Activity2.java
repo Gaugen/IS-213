@@ -1,6 +1,9 @@
 package com.example.beerorganizer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 
 public class Activity2 extends AppCompatActivity {
 
@@ -100,6 +104,7 @@ public class Activity2 extends AppCompatActivity {
         finish();
     }
 
+    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 
 
    // public void buttonOnClick(View v) {
