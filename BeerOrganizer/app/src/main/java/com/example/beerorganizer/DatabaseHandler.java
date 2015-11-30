@@ -4,9 +4,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.util.Log;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +22,7 @@ import java.util.List;
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
+    private static String DB_PATH = "data/data/com.example.beerorganizer/databases/";
     private static final String DATABASE_NAME = "Manager",
     TABLE_BEERS = "beers",
     KEY_BEER_ID = "beerid",
@@ -28,6 +36,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     KEY_DRINK_NAME = "drinkname",
     KEY_DRINK_PRICE = "drinkprice",
     KEY_DRINK_STORE = "drinkstore";
+    private SQLiteDatabase myDB;
+    private Context context;
 
 
     public DatabaseHandler(Context context) {
@@ -36,9 +46,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //http://developer.android.com/training/basics/data-storage/databases.html
     // Trenger en methode som laster inn/ leser inn data fra forrige gang appen kjørte, eller lager ny db om det er første gang den blir kjørt.
     //getWritableDatabase() or getReadableDatabase() sqlite metoder.
-    public void ReadableDatabase(SQLiteDatabase db) {
+    //public void ReadableDatabase(SQLiteDatabase db) {
 
-    }
+   // }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -52,6 +62,87 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         onCreate(db);
     }
+
+    @Override
+    public synchronized void close(){
+        if(myDB!=null){
+            myDB.close();
+        }
+        super.close();
+    }
+
+    /***
+     * Check if the database is exist on device or not
+     * @return
+     */
+    private boolean checkDataBase() {
+        SQLiteDatabase tempDB = null;
+        try {
+            String myPath = DB_PATH + DATABASE_NAME;
+            tempDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        } catch (SQLiteException e) {
+            Log.e("tle99 - check", e.getMessage());
+        }
+        if (tempDB != null)
+            tempDB.close();
+        return tempDB != null ? true : false;
+    }
+
+    /***
+     * Copy database from source code assets to device
+     * @throws IOException
+     */
+    public void copyDataBase() throws IOException {
+        try {
+            InputStream myInput = context.getAssets().open(DATABASE_NAME);
+            String outputFileName = DB_PATH + DATABASE_NAME;
+            OutputStream myOutput = new FileOutputStream(outputFileName);
+
+            byte[] buffer = new byte[1024];
+            int length;
+
+            while((length = myInput.read(buffer))>0){
+                myOutput.write(buffer, 0, length);
+            }
+
+            myOutput.flush();
+            myOutput.close();
+            myInput.close();
+        } catch (Exception e) {
+            Log.e("tle99 - copyDatabase", e.getMessage());
+        }
+
+    }
+
+    /***
+     * Open database
+     * @throws SQLException
+     */
+    public void openDataBase() throws SQLException {
+        String myPath = DB_PATH + DATABASE_NAME;
+        myDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+    }
+
+    /***
+     * Check if the database doesn't exist on device, create new one
+     * @throws IOException
+     */
+    public void createDataBase() throws IOException {
+        boolean dbExist = checkDataBase();
+
+        if (dbExist) {
+
+        } else {
+            this.getReadableDatabase();
+            try {
+                copyDataBase();
+            } catch (IOException e) {
+                Log.e("tle99 - create", e.getMessage());
+            }
+        }
+    }
+
+    
 
     public void createBeer(Beer beer) {
         SQLiteDatabase db = getWritableDatabase();
