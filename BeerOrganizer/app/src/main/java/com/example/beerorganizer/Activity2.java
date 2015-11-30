@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 public class Activity2 extends AppCompatActivity {
@@ -47,15 +47,25 @@ public class Activity2 extends AppCompatActivity {
                 sumTextView.setText("Sum:" + mSum + "!");
                 */
                 //System.out.println("Beer name: nøgne ø, pris: 399, butikk: rema. ");
-                ResourceManager.getInstance().count++;
-                ResourceManager.getInstance().sum += ResourceManager.getInstance().cost_beer;
-                countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
-                sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
-                SharedPreferences sp = getSharedPreferences("Preference", Activity.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putInt("sum", ResourceManager.getInstance().sum );
-                editor.putInt("count", ResourceManager.getInstance().count );
-                editor.commit();
+                if (ResourceManager.getInstance().cost_beer == 0){
+                    Toast.makeText(getApplicationContext(), "You Have to choose a Beer!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    ResourceManager.getInstance().count++;
+                    ResourceManager.getInstance().sum += ResourceManager.getInstance().cost_beer;
+                    countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
+                    sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
+                    SharedPreferences sp = getSharedPreferences("Preference", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putInt("sum", ResourceManager.getInstance().sum );
+                    editor.putInt("count", ResourceManager.getInstance().count );
+                    editor.commit();
+
+                }
+
+
+
+
 
             }
         });
@@ -63,15 +73,22 @@ public class Activity2 extends AppCompatActivity {
         drinkButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                ResourceManager.getInstance().count++;
-                ResourceManager.getInstance().sum += ResourceManager.getInstance().cost_drink;
-                countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
-                sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
-                SharedPreferences sp = getSharedPreferences("Preference", Activity.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putInt("sum", ResourceManager.getInstance().sum );
-                editor.putInt("count", ResourceManager.getInstance().count);
-                editor.commit();
+
+                if (ResourceManager.getInstance().cost_drink ==0) {
+                    Toast.makeText(getApplicationContext(), "You Have to choose a Drink!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    ResourceManager.getInstance().count++;
+                    ResourceManager.getInstance().sum += ResourceManager.getInstance().cost_drink;
+                    countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
+                    sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
+                    SharedPreferences sp = getSharedPreferences("Preference", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putInt("sum", ResourceManager.getInstance().sum );
+                    editor.putInt("count", ResourceManager.getInstance().count);
+                    editor.commit();
+                }
+
 
             }
         });
