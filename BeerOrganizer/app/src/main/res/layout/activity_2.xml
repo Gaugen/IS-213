@@ -71,18 +71,29 @@
             android:layout_alignLeft="@+id/chooseDrinkBtn"
             android:layout_alignStart="@+id/chooseDrinkBtn" />
 
-    </RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log"
+            android:id="@+id/activity3"
+            android:onClick="activity3"
+            android:layout_alignTop="@+id/resetButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Sum:"
-        android:layout_marginBottom="12dp"
-        android:id="@+id/textSum"
-        android:textColor="#ffffff"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Sum:"
+            android:id="@+id/textSum"
+            android:textColor="#ffffff"
+            android:layout_alignBaseline="@+id/resetButton"
+            android:layout_alignBottom="@+id/resetButton"
+            android:layout_toRightOf="@+id/chooseDrinkBtn"
+            android:layout_toEndOf="@+id/chooseDrinkBtn" />
+
+    </RelativeLayout>
 
     <TextView android:text="Du har drukket 0 enheter!" android:layout_width="fill_parent"
         android:layout_height="wrap_content"

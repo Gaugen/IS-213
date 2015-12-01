@@ -13,6 +13,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class Activity2 extends AppCompatActivity {
 
@@ -22,18 +26,36 @@ public class Activity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
         SharedPreferences sp = getSharedPreferences("Preference", Activity.MODE_PRIVATE);
+        //SharedPreferences log = getSharedPreferences("LogPreference", Activity.MODE_PRIVATE);
 
         final TextView countTextView = (TextView) findViewById(R.id.TextViewCount);
         final TextView sumTextView = (TextView) findViewById(R.id.textSum);
         final ImageButton countButton = (ImageButton) findViewById(R.id.beerCount);
         final ImageButton drinkButton = (ImageButton) findViewById(R.id.drinkCount);
         final Button resetButton = (Button) findViewById(R.id.resetButton);
-        int count = sp.getInt("count",0);
-        int sum = sp.getInt("sum",0);
+        final Button saveLogButton = (Button) findViewById(R.id.saveLogButton);
+        final int count = sp.getInt("count",0);
+        final int sum = sp.getInt("sum",0);
 
         countTextView.setText("Du har drukket " + count + " enheter!");
         sumTextView.setText("Sum:" + sum + "!");
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        final Date date = new Date();
+        //System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
 
+        saveLogButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                ResourceManager.getInstance().sum = 0;
+                ResourceManager.getInstance().count = 0;
+                countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
+                sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
+                SharedPreferences log = getSharedPreferences("LogPreference", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = log.edit();
+                editor.putString(dateFormat.format(date), note + "Saved on: " + dateFormat.format(date) + "Number of drinks: " + count + "Sum: " + sum);
+                editor.commit();
+            }
+        });
 
 
         //BeerButton
@@ -74,17 +96,16 @@ public class Activity2 extends AppCompatActivity {
 
             public void onClick(View v) {
 
-                if (ResourceManager.getInstance().cost_drink ==0) {
+                if (ResourceManager.getInstance().cost_drink == 0) {
                     Toast.makeText(getApplicationContext(), "You Have to choose a Drink!", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     ResourceManager.getInstance().count++;
                     ResourceManager.getInstance().sum += ResourceManager.getInstance().cost_drink;
                     countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
                     sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
                     SharedPreferences sp = getSharedPreferences("Preference", Activity.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
-                    editor.putInt("sum", ResourceManager.getInstance().sum );
+                    editor.putInt("sum", ResourceManager.getInstance().sum);
                     editor.putInt("count", ResourceManager.getInstance().count);
                     editor.commit();
                 }
@@ -95,18 +116,18 @@ public class Activity2 extends AppCompatActivity {
 
         resetButton.setOnClickListener(new View.OnClickListener() {
 
-        public void onClick (View view) {
-            ResourceManager.getInstance().sum = 0;
-            ResourceManager.getInstance().count = 0;
-            countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
-            sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
-            SharedPreferences sp = getSharedPreferences("Preference", Activity.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit();
-            editor.clear();
-            editor.commit();
+            public void onClick(View view) {
+                ResourceManager.getInstance().sum = 0;
+                ResourceManager.getInstance().count = 0;
+                countTextView.setText("Du har drukket " + ResourceManager.getInstance().count + " enheter!");
+                sumTextView.setText("Sum:" + ResourceManager.getInstance().sum + "!");
+                SharedPreferences sp = getSharedPreferences("Preference", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
 
 
-        }
+            }
         });
     }
 
