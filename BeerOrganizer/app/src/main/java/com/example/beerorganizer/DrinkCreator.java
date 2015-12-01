@@ -68,14 +68,14 @@ public class DrinkCreator extends Activity {
 
         tabHost2.setup();
 
-        TabHost.TabSpec tabSpec = tabHost2.newTabSpec("creatorDrink");
-        tabSpec.setContent(R.id.tabDrinkCreator);
-        tabSpec.setIndicator("CreatorDrink");
-        tabHost2.addTab(tabSpec);
-
-        tabSpec = tabHost2.newTabSpec("listDrink");
+        TabHost.TabSpec tabSpec = tabHost2.newTabSpec("listDrink");
         tabSpec.setContent(R.id.tabDrinkList);
         tabSpec.setIndicator("ListDrink");
+        tabHost2.addTab(tabSpec);
+
+        tabSpec = tabHost2.newTabSpec("creatorDrink");
+        tabSpec.setContent(R.id.tabDrinkCreator);
+        tabSpec.setIndicator("CreatorDrink");
         tabHost2.addTab(tabSpec);
 
 
@@ -88,7 +88,7 @@ public class DrinkCreator extends Activity {
                 if (!drinkListExists(drinkList)) {
                     dbHandler.createDrink(drinkList);
                     Drinks.add(drinkList);
-//                    drinkListAdapter.notifyDataSetChanged();
+                    drinkListAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), String.valueOf(dNameTxt.getText()) + " has been added to your Drink list!", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getApplicationContext(), "Your Beer has been created!", Toast.LENGTH_SHORT).show();
                     return;
@@ -129,7 +129,7 @@ public class DrinkCreator extends Activity {
        if (dbHandler.getDrinksCount() != 0)
            Drinks.addAll(dbHandler.getAllDrinks());
 
-//        populateList();
+        populateList();
     }
 
 
@@ -186,10 +186,10 @@ public class DrinkCreator extends Activity {
     }
 
 
-//    private void populateList() {
-//        drinkListAdapter = new DrinkListAdapter();
-//        drinkListView.setAdapter(drinkListAdapter);
-//    }
+    private void populateList() {
+        drinkListAdapter = new DrinkListAdapter();
+        drinkListView.setAdapter(drinkListAdapter);
+    }
 
 
 
@@ -219,6 +219,12 @@ public class DrinkCreator extends Activity {
 
     public void buttonOnClick(View v) {
         Button orgBack=(Button) v;
+        startActivity(new Intent(getApplicationContext(),Activity2.class));
+        finish();
+    }
+
+    public void buttonOnClick2(View v) {
+        Button drinkBack=(Button) v;
         startActivity(new Intent(getApplicationContext(),Activity2.class));
         finish();
     }

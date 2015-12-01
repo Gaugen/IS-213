@@ -64,14 +64,14 @@ public class MainActivity extends Activity {
 
         tabHost.setup();
 
-        TabHost.TabSpec tabSpec = tabHost.newTabSpec("creator");
-        tabSpec.setContent(R.id.tabBeerCreator);
-        tabSpec.setIndicator("Creator");
-        tabHost.addTab(tabSpec);
-
-        tabSpec = tabHost.newTabSpec("list");
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("list");
         tabSpec.setContent(R.id.tabBeerList);
         tabSpec.setIndicator("List");
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("creator");
+        tabSpec.setContent(R.id.tabBeerCreator);
+        tabSpec.setIndicator("Creator");
         tabHost.addTab(tabSpec);
 
 
@@ -211,6 +211,12 @@ public class MainActivity extends Activity {
 
     public void buttonOnClick(View v) {
         Button orgBack=(Button) v;
+        startActivity(new Intent(getApplicationContext(),Activity2.class));
+        finish();
+    }
+
+    public void buttonOnClick2(View v) {
+        Button BeerBack=(Button) v;
         startActivity(new Intent(getApplicationContext(),Activity2.class));
         finish();
     }

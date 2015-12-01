@@ -25,7 +25,31 @@
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="333dp">
+
+                <LinearLayout
+                    android:id="@+id/tabDrinkList"
+                    android:layout_width="match_parent"
+                    android:layout_height="308dp"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Your Drinks"
+                        android:id="@+id/textView"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp" />
+
+                    <ListView
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/listDrinkView"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/tabDrinkCreator"
@@ -97,19 +121,20 @@
                         android:onClick="buttonOnClick" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/tabDrinkList"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"></LinearLayout>
-
-                <ListView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:id="@+id/listDrinkView"
-                    android:layout_gravity="center" />
-
             </FrameLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tilbake"
+                android:id="@+id/drinkBack"
+                android:layout_gravity="center_horizontal"
+                android:singleLine="false"
+                android:onClick="buttonOnClick2" />
+
+
+
+
         </LinearLayout>
     </TabHost>
 

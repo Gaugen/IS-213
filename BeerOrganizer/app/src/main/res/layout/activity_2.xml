@@ -58,7 +58,8 @@
             android:onClick="openDrinkActivity"
             android:layout_below="@+id/drinkCount"
             android:layout_alignRight="@+id/drinkCount"
-            android:layout_alignEnd="@+id/drinkCount" />
+            android:layout_alignEnd="@+id/drinkCount"
+            android:singleLine="true" />
 
         <Button
             android:layout_width="wrap_content"
