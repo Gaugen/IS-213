@@ -75,8 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log"
-            android:id="@+id/activity3"
-            android:onClick="activity3"
+            android:id="@+id/logg"
+            android:onClick="goToLogg"
             android:layout_alignTop="@+id/resetButton"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />

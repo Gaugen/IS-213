@@ -33,7 +33,7 @@ public class Activity2 extends AppCompatActivity {
         final ImageButton countButton = (ImageButton) findViewById(R.id.beerCount);
         final ImageButton drinkButton = (ImageButton) findViewById(R.id.drinkCount);
         final Button resetButton = (Button) findViewById(R.id.resetButton);
-        final Button saveLogButton = (Button) findViewById(R.id.saveLogButton);
+        //final Button goToLogg = (Button) findViewById(R.id.saveLogButton);
         final int count = sp.getInt("count",0);
         final int sum = sp.getInt("sum",0);
 
@@ -43,7 +43,7 @@ public class Activity2 extends AppCompatActivity {
         final Date date = new Date();
         //System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
 
-        saveLogButton.setOnClickListener(new View.OnClickListener() {
+        /*saveLogButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 ResourceManager.getInstance().sum = 0;
@@ -56,7 +56,7 @@ public class Activity2 extends AppCompatActivity {
                 editor.commit();
             }
         });
-
+*/
 
         //BeerButton
         countButton.setOnClickListener(new View.OnClickListener() {
@@ -168,8 +168,15 @@ public class Activity2 extends AppCompatActivity {
         finish();
     }
 
+    public void goToLogg(View view) {
+// Do something in response to button
+        Intent intent = new Intent(this, Logg.class);
+        startActivity(intent);
+        finish();
+    }
 
-   // public void buttonOnClick(View v) {
+
+    // public void buttonOnClick(View v) {
      //   Button chooseBeerBtn=(Button) v;
      //   startActivity(new Intent(getApplicationContext(),MainActivity.class));
     //    finish();

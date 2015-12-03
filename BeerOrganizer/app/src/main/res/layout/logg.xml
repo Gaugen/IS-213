@@ -1,48 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="fill_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:id="@+id/ivDrinkImage" />
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ok2">
+        android:text="Clear Log"
+        android:onClick="clearLog"
+        android:id="@+id/clearLog"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/saveCurrent"
+        android:layout_toEndOf="@+id/saveCurrent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Drink name"
-            android:id="@+id/buyName"
-            android:layout_gravity="left|center_vertical" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/goBack"
+        android:onClick="goBack"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Price"
-            android:id="@+id/buyPrice"
-            android:layout_gravity="left|center_vertical" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save current"
+        android:id="@+id/saveCurrent"
+        android:onClick="saveCurrent"
+        android:layout_alignTop="@+id/goBack"
+        android:layout_toRightOf="@+id/goBack"
+        android:layout_toEndOf="@+id/goBack" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:id="@+id/buyDate"
-            android:layout_gravity="left|center_vertical" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sharedPreferenceTxt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/logHead"
+        android:layout_above="@+id/clearLog" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log:"
+        android:id="@+id/logHead"
+        android:layout_marginTop="18dp"
+        android:textStyle="bold"
+        android:textSize="12pt"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Butikk"
-            android:id="@+id/buyStore"
-            android:layout_gravity="left|center_vertical" />
-    </LinearLayout>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/saveText"
+        android:layout_alignLeft="@+id/logHead"
+        android:layout_alignStart="@+id/logHead"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/sharedPreferenceTxt"
+        android:text="Name of your current log here!"
+        android:editable="true" />
 
-</LinearLayout>
+</RelativeLayout>
