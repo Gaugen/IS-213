@@ -170,7 +170,7 @@ public class Activity2 extends AppCompatActivity {
 
     public void goToLogg(View view) {
 // Do something in response to button
-        Intent intent = new Intent(this, Logg.class);
+        Intent intent = new Intent(this, Log.class);
         startActivity(intent);
         finish();
     }

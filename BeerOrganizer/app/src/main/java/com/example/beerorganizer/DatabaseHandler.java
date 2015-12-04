@@ -35,7 +35,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     KEY_DRINK_ID = "drinkid",
     KEY_DRINK_NAME = "drinkname",
     KEY_DRINK_PRICE = "drinkprice",
-    KEY_DRINK_STORE = "drinkstore";
+    KEY_DRINK_STORE = "drinkstore",
+
+    TABLE_BEVERAGES = "beverages",
+    KEY_BEVERAGE_ID = "beverageid",
+    KEY_BEVERAGE_NAME = "beveragename",
+    KEY_BEVERAGE_PRICE = "beverageprice",
+    KEY_BEVERAGE_STORE = "beveragestore",
+    KEY_BEVERAGE_TIMESTAMP = "beveragetimestamp";
+
     private SQLiteDatabase myDB;
     private Context context;
 
@@ -54,11 +62,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_BEERS + "(" + KEY_BEER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_BEER_NAME + " TEXT," + KEY_BEER_PRICE + " TEXT," + KEY_BEER_STORE + " TEXT," + KEY_IMAGEURI + " TEXT)");
         db.execSQL("CREATE TABLE " + TABLE_DRINKS + "(" + KEY_DRINK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_DRINK_NAME + " TEXT," + KEY_DRINK_PRICE + " TEXT," + KEY_DRINK_STORE + " TEXT," + KEY_IMAGEURI + " TEXT)");
+        db.execSQL("CREATE TABLE " + TABLE_BEVERAGES + "(" + KEY_BEVERAGE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_BEVERAGE_NAME + " TEXT," + KEY_BEVERAGE_PRICE + " TEXT," + KEY_BEVERAGE_STORE + " TEXT," + KEY_IMAGEURI + " TEXT)" + KEY_BEVERAGE_TIMESTAMP + " TEXT,");
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BEERS + TABLE_DRINKS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BEERS + TABLE_DRINKS + TABLE_BEVERAGES);
 
         onCreate(db);
     }
