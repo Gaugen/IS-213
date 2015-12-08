@@ -1,72 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clear Log"
-        android:onClick="clearLog"
-        android:id="@+id/clearLog"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/saveCurrent"
-        android:layout_toEndOf="@+id/saveCurrent" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Log:"
+        android:id="@+id/logHeader"
+        android:layout_marginTop="10dp" />
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="295dp"
+        android:id="@+id/listLoggView"
+        android:layout_weight="0.67" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
-        android:id="@+id/goBack"
-        android:onClick="goBack"
-        android:layout_marginLeft="35dp"
-        android:layout_marginStart="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save current"
-        android:id="@+id/saveCurrent"
-        android:onClick="saveCurrent"
-        android:layout_alignTop="@+id/goBack"
-        android:layout_toRightOf="@+id/goBack"
-        android:layout_toEndOf="@+id/goBack" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/sharedPreferenceTxt"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/logHead"
-        android:layout_above="@+id/clearLog" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log:"
-        android:id="@+id/logHead"
-        android:layout_marginTop="18dp"
-        android:textStyle="bold"
-        android:textSize="12pt"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/saveText"
-        android:layout_alignLeft="@+id/logHead"
-        android:layout_alignStart="@+id/logHead"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/sharedPreferenceTxt"
-        android:text="Name of your current log here!"
-        android:editable="true" />
-
-</RelativeLayout>
+        android:id="@+id/loggBack"
+        android:singleLine="false"
+        android:onClick="backToMain" />
+</LinearLayout>

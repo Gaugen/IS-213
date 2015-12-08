@@ -82,6 +82,7 @@ public class Activity2 extends AppCompatActivity {
                     editor.putInt("sum", ResourceManager.getInstance().sum );
                     editor.putInt("count", ResourceManager.getInstance().count );
                     editor.commit();
+                    LoggList.addLogg();
 
                 }
 
@@ -170,7 +171,7 @@ public class Activity2 extends AppCompatActivity {
 
     public void goToLogg(View view) {
 // Do something in response to button
-        Intent intent = new Intent(this, Log.class);
+        Intent intent = new Intent(this, Logg.class);
         startActivity(intent);
         finish();
     }

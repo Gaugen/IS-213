@@ -37,12 +37,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     KEY_DRINK_PRICE = "drinkprice",
     KEY_DRINK_STORE = "drinkstore",
 
-    TABLE_BEVERAGES = "beverages",
-    KEY_BEVERAGE_ID = "beverageid",
-    KEY_BEVERAGE_NAME = "beveragename",
-    KEY_BEVERAGE_PRICE = "beverageprice",
-    KEY_BEVERAGE_STORE = "beveragestore",
-    KEY_BEVERAGE_TIMESTAMP = "beveragetimestamp";
+    TABLE_LOGG = "logg",
+    KEY_LOGG_ID = "loggid",
+    KEY_LOGG_NAME = "loggname",
+    KEY_LOGG_PRICE = "loggprice",
+    KEY_LOGG_STORE = "loggstore",
+    KEY_LOGG_TIMESTAMP = "loggtimestamp";
 
     private SQLiteDatabase myDB;
     private Context context;
@@ -62,13 +62,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_BEERS + "(" + KEY_BEER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_BEER_NAME + " TEXT," + KEY_BEER_PRICE + " TEXT," + KEY_BEER_STORE + " TEXT," + KEY_IMAGEURI + " TEXT)");
         db.execSQL("CREATE TABLE " + TABLE_DRINKS + "(" + KEY_DRINK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_DRINK_NAME + " TEXT," + KEY_DRINK_PRICE + " TEXT," + KEY_DRINK_STORE + " TEXT," + KEY_IMAGEURI + " TEXT)");
-        db.execSQL("CREATE TABLE " + TABLE_BEVERAGES + "(" + KEY_BEVERAGE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_BEVERAGE_NAME + " TEXT," + KEY_BEVERAGE_PRICE + " TEXT," + KEY_BEVERAGE_STORE + " TEXT," + KEY_IMAGEURI + " TEXT)" + KEY_BEVERAGE_TIMESTAMP + " TEXT,");
+        db.execSQL("CREATE TABLE " + TABLE_LOGG + "(" + KEY_LOGG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LOGG_NAME + " TEXT," + KEY_LOGG_PRICE + " TEXT," + KEY_LOGG_STORE + " TEXT," + KEY_LOGG_TIMESTAMP + " TEXT,");
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BEERS + TABLE_DRINKS + TABLE_BEVERAGES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BEERS + TABLE_DRINKS + TABLE_LOGG);
 
         onCreate(db);
     }
@@ -182,6 +182,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void createLogg(Logg logg) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_LOGG_NAME, logg.getLoggName());
+        values.put(KEY_LOGG_PRICE, logg.getLoggPrice());
+        values.put(KEY_LOGG_STORE, logg.getLoggStore());
+        values.put(KEY_LOGG_TIMESTAMP, logg.getTimeStamp());
+
+        db.insert(TABLE_LOGG, null, values);
+        db.close();
+    }
+
     public Beer getBeer(int id) {
         SQLiteDatabase db = getReadableDatabase();
 
@@ -208,6 +222,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return drinkList;
     }
 
+    public Logg getLogg(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_LOGG, new String[] {KEY_LOGG_ID, KEY_LOGG_NAME, KEY_LOGG_PRICE, KEY_LOGG_STORE, KEY_LOGG_TIMESTAMP}, KEY_LOGG_ID + "=?", new String[] { String.valueOf(id)}, null, null, null, null );
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Logg logg = new Logg(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+        db.close();
+        cursor.close();
+        return logg;
+    }
+
     // TODO: add editBeer function
    // public void editBeer(Beer beer) {
    //     SQLiteDatabase db = getWritableDatabase();
@@ -223,6 +250,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteDrink(DrinkList drinkList) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_DRINKS, KEY_DRINK_ID + "=?", new String[]{String.valueOf(drinkList.getId())});
+        db.close();
+    }
+
+    public void deleteLogg(Logg logg) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_LOGG, KEY_LOGG_ID + "=?", new String[]{String.valueOf(logg.getId())});
         db.close();
     }
 
@@ -242,6 +275,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //SELECT * FROM CONTACTS
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_DRINKS, null);
+        int count = cursor.getCount();
+        db.close();
+        cursor.close();
+
+        return count;
+    }
+
+    public int getBeverageCount(){
+        //SELECT * FROM Logg
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_LOGG, null);
         int count = cursor.getCount();
         db.close();
         cursor.close();
@@ -283,6 +327,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public int updateLogg(Logg logg) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_LOGG_NAME, logg.getLoggName());
+        values.put(KEY_LOGG_PRICE, logg.getLoggPrice());
+        values.put(KEY_LOGG_STORE, logg.getLoggStore());
+        values.put(KEY_LOGG_TIMESTAMP, logg.getTimeStamp());
+
+        int rowsAffected = db.update(TABLE_LOGG, values, KEY_LOGG_ID + "=?", new String[]{String.valueOf(logg.getId())});
+        db.close();
+
+        return rowsAffected;
+
+    }
+
     public List<Beer> getAllBeers() {
         List<Beer> beers = new ArrayList<Beer>();
         SQLiteDatabase db = getWritableDatabase();
@@ -311,5 +372,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return drinks;
+    }
+
+    public List<Logg> getAllLoggs() {
+        List<Logg> loggs = new ArrayList<Logg>();
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_LOGG, null);
+        if(cursor.moveToFirst()) {
+            do {
+                loggs.add(new Logg(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Integer.parseInt(cursor.getString(4))));
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return loggs;
     }
 }
