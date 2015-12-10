@@ -2,7 +2,6 @@ package com.example.beerorganizer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,26 +21,28 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by larsenj on 23.10.2015.
  */
+
+//DrinkCreator lets us create Drink objects and put in to the list as well enabling us to choose as standard
 public class DrinkCreator extends Activity {
 
     private static final int STANDARD = 0, EDIT = 1, DELETE = 2;
 
     EditText dNameTxt, dPriceTxt, dStoreTxt;
     ImageView drinkImageImgview;
-    List<DrinkList> Drinks = new ArrayList<DrinkList>();
+    List<Drink> Drinks = new ArrayList<Drink>();
     ListView drinkListView;
     Uri imageUri = Uri.parse("android.resource://org.intracode.beerorganizer/drawable/no_user_logo.png");
     DatabaseHandler dbHandler;
     int longClickedItemIndex;
-    ArrayAdapter<DrinkList> drinkListAdapter;
+    ArrayAdapter<Drink> drinkListAdapter;
 
+    //Set up fields that connects to the XML-file. Also creates tabs, one for the list and one for the creator.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,16 +79,15 @@ public class DrinkCreator extends Activity {
         tabSpec.setIndicator("CreatorDrink");
         tabHost2.addTab(tabSpec);
 
-
+        //Creates a drink object and adds it to DrinkList with out chosen values.
         final Button addDrinkBtn = (Button) findViewById(R.id.btnDrinkAdd);
-        // addBtn.setOnClickListener((view) -> {
         addDrinkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DrinkList drinkList = new DrinkList(dbHandler.getDrinksCount(), String.valueOf(dNameTxt.getText()), String.valueOf(dPriceTxt.getText()), String.valueOf(dStoreTxt.getText()), imageUri);
-                if (!drinkListExists(drinkList)) {
-                    dbHandler.createDrink(drinkList);
-                    Drinks.add(drinkList);
+                Drink drink = new Drink(dbHandler.getDrinksCount(), String.valueOf(dNameTxt.getText()), String.valueOf(dPriceTxt.getText()), String.valueOf(dStoreTxt.getText()), imageUri);
+                if (!drinkListExists(drink)) {
+                    dbHandler.createDrink(drink);
+                    Drinks.add(drink);
                     drinkListAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), String.valueOf(dNameTxt.getText()) + " has been added to your Drink list!", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getApplicationContext(), "Your Beer has been created!", Toast.LENGTH_SHORT).show();
@@ -101,21 +101,25 @@ public class DrinkCreator extends Activity {
 
         dNameTxt.addTextChangedListener(new TextWatcher() {
             @Override
+            //This method is called to notify you that, the count characters beginning at start are about to be replaced by new text with length after
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
             }
 
             @Override
+            //This method is called to notify you that, the count characters beginning at start have just replaced old text that had length before.
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 addDrinkBtn.setEnabled(String.valueOf(dNameTxt.getText()).trim().length() > 0);
             }
 
             @Override
+            //This method is called to notify you that, the text has been changed.
             public void afterTextChanged(Editable editable) {
 
             }
         });
 
+        //Gives you the option to click on the image to add an image
         drinkImageImgview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,13 +130,14 @@ public class DrinkCreator extends Activity {
             }
         });
 
+        // Populates the list if there's any drinks.
        if (dbHandler.getDrinksCount() != 0)
            Drinks.addAll(dbHandler.getAllDrinks());
 
         populateList();
     }
 
-
+//When you click and hold over a drink in the list, this menu pops up.
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, view, menuInfo);
 
@@ -144,17 +149,18 @@ public class DrinkCreator extends Activity {
 
     }
 
+    //Methods following the menu above.
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            // Choose drink as standard-drink.
             case STANDARD:
                 // TODO: Implement standardizing a beer
                 ResourceManager.getInstance().cost_drink = Integer.parseInt(Drinks.get(longClickedItemIndex).getDrinkPrice());
                 break;
+            // Not yet created
             case EDIT:
-                //dbHandler.editBeer(Beers.get(longClickedItemIndex));
-                //Beers
-                // TODO: Implement editing a contact
                 break;
+            // Deletes a drink from the list.
             case DELETE:
                 dbHandler.deleteDrink(Drinks.get(longClickedItemIndex));
                 Drinks.remove(longClickedItemIndex);
@@ -165,8 +171,9 @@ public class DrinkCreator extends Activity {
         return super.onContextItemSelected(item);
     }
 
-    private boolean drinkListExists(DrinkList drinkList) {
-        String dName = drinkList.getDrinkName();
+    //Adds a list if no list exists.
+    private boolean drinkListExists(Drink drink) {
+        String dName = drink.getDrinkName();
         int drinkListCount = Drinks.size();
 
         for (int i = 0; i < drinkListCount; i++) {
@@ -185,15 +192,15 @@ public class DrinkCreator extends Activity {
         }
     }
 
-
+// populates the list by demand
     private void populateList() {
         drinkListAdapter = new DrinkListAdapter();
         drinkListView.setAdapter(drinkListAdapter);
     }
 
 
-
-    private class DrinkListAdapter extends ArrayAdapter<DrinkList> {
+//Gets the content of creator and puts it in the list.
+    private class DrinkListAdapter extends ArrayAdapter<Drink> {
         public DrinkListAdapter() {
             super (DrinkCreator.this, R.layout.drink_list, Drinks);
         }
@@ -203,7 +210,7 @@ public class DrinkCreator extends Activity {
             if (view == null)
                 view = getLayoutInflater().inflate(R.layout.drink_list, parent, false);
 
-            DrinkList currentDrink = Drinks.get(position);
+            Drink currentDrink = Drinks.get(position);
 
             TextView drinkName = (TextView) view.findViewById(R.id.drinkName);
             drinkName.setText(currentDrink.getDrinkName());
@@ -216,16 +223,16 @@ public class DrinkCreator extends Activity {
             return view;
         }
     }
-
+    //Takes you back to the Main Page
     public void buttonOnClick(View v) {
         Button orgBack=(Button) v;
-        startActivity(new Intent(getApplicationContext(),Activity2.class));
+        startActivity(new Intent(getApplicationContext(),Main_Activity.class));
         finish();
     }
-
+    //Takes you back to the Main Page
     public void buttonOnClick2(View v) {
         Button drinkBack=(Button) v;
-        startActivity(new Intent(getApplicationContext(),Activity2.class));
+        startActivity(new Intent(getApplicationContext(),Main_Activity.class));
         finish();
     }
 

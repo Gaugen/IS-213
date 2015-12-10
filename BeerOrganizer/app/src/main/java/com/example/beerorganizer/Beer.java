@@ -5,6 +5,8 @@ import android.net.Uri;
 /**
  * Created by steff_000 on 04.09.2015.
  */
+
+//The beer classes is a layout for objects that we can create and put in the BeerList.
 public class Beer {
 
     private String _beerName, _beerPrice, _beerStore;

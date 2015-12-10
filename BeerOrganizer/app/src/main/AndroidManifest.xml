@@ -5,11 +5,11 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Beer Droid"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Activity2"
-            android:label="@string/title_activity_2"
+            android:name=".Main_Activity"
+            android:label="Beer Droid"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,13 +18,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:name=".BeerCreator"
+            android:label="Beer Droid"
             android:noHistory="true">
         </activity>
         <activity
             android:name=".DrinkCreator"
-            android:label="@string/app_name"
+            android:label="Beer Droid"
             android:noHistory="true">
         </activity>
     </application>

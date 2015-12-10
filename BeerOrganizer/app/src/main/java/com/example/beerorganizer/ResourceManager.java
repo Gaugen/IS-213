@@ -3,6 +3,7 @@ package com.example.beerorganizer;
 /**
  * Created by EMU on 11.11.2015.
  */
+//ResourceManager is a file for keeping track over count and sum functions.
 public class ResourceManager {
     private static ResourceManager singleton = new ResourceManager();
     private ResourceManager() {}

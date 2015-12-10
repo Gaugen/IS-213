@@ -7,12 +7,14 @@ import java.net.URI;
 /**
  * Created by larsenj on 23.10.2015.
  */
-public class DrinkList {
+
+//The drink classes is a layout for objects that we can create and put in the DrinkList.
+public class Drink {
     private String _drinkName, _drinkPrice, _drinkStore;
     private Uri _imageUri;
     private int _drinkId;
 
-    public DrinkList(int id, String drinkName, String drinkPrice, String drinkStore, Uri imageUri) {
+    public Drink(int id, String drinkName, String drinkPrice, String drinkStore, Uri imageUri) {
         _drinkId = id;
         _drinkName = drinkName;
         _drinkPrice = drinkPrice;

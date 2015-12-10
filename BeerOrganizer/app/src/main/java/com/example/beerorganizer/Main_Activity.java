@@ -14,13 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class Activity2 extends AppCompatActivity {
+public class Main_Activity extends AppCompatActivity {
 
-    //kommenter her au
+    //onCreate: Set up fields that connects to the XML-file, connects activity to sharedpreferences-file in order to save values from shutdown to startup.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_2);
+        setContentView(R.layout.main_activity);
         SharedPreferences sp = getSharedPreferences("Preference", Activity.MODE_PRIVATE);
 
         final TextView countTextView = (TextView) findViewById(R.id.TextViewCount);
@@ -40,13 +40,6 @@ public class Activity2 extends AppCompatActivity {
         countButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                /*
-                mCount++;
-                mSum += ResourceManager.getInstance().cost_beer;
-                countTextView.setText("Du har drukket " + mCount + " enheter!");
-                sumTextView.setText("Sum:" + mSum + "!");
-                */
-                //System.out.println("Beer name: nøgne ø, pris: 399, butikk: rema. ");
                 if (ResourceManager.getInstance().cost_beer == 0){
                     Toast.makeText(getApplicationContext(), "You Have to choose a Beer!", Toast.LENGTH_SHORT).show();
                 }
@@ -135,7 +128,7 @@ public class Activity2 extends AppCompatActivity {
     }
 
     public void openDrinkActivity(View view) {
-// Do something in response to button
+//Opens the DrinkCreator activity
         Intent intent = new Intent(this, DrinkCreator.class);
         startActivity(intent);
         finish();
@@ -143,17 +136,12 @@ public class Activity2 extends AppCompatActivity {
     }
 
     public void openBeerActivity(View view) {
-// Do something in response to button
-        Intent intent = new Intent(this, MainActivity.class);
+// Opens the BeerCreator activity
+        Intent intent = new Intent(this, BeerCreator.class);
         startActivity(intent);
         finish();
     }
 
 
-   // public void buttonOnClick(View v) {
-     //   Button chooseBeerBtn=(Button) v;
-     //   startActivity(new Intent(getApplicationContext(),MainActivity.class));
-    //    finish();
-   // }
 
 }

@@ -24,7 +24,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity {
+
+//BeerCreator lets us create Beer objects and put in to the list as well enabling us to choose as standard
+public class BeerCreator extends Activity {
 
     private static final int STANDARD = 0, EDIT = 1, DELETE = 2;
 
@@ -38,10 +40,12 @@ public class MainActivity extends Activity {
     int longClickedItemIndex;
     ArrayAdapter<Beer> beerAdapter;
 
+
+    //Set up fields that connects to the XML-file. Also creates tabs, one for the list and one for the creator.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.beer_creator);
 
         nameTxt = (EditText) findViewById(R.id.txtName);
         priceTxt = (EditText) findViewById(R.id.txtPrice);
@@ -74,9 +78,8 @@ public class MainActivity extends Activity {
         tabSpec.setIndicator("Creator");
         tabHost.addTab(tabSpec);
 
-
+        //Creates a drink object and adds it to DrinkList with out chosen values.
         final Button addBtn = (Button) findViewById(R.id.btnAdd);
-        // addBtn.setOnClickListener((view) -> {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,21 +99,26 @@ public class MainActivity extends Activity {
 
         nameTxt.addTextChangedListener(new TextWatcher() {
             @Override
+            //This method is called to notify you that, the count characters beginning at start are about to be replaced by new text with length after
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
             }
 
             @Override
+            //This method is called to notify you that, the count characters beginning at start have just replaced old text that had length before.
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 //addBtn.setEnabled(!nameTxt.getText().toString().trim().isEmpty());
                 addBtn.setEnabled(String.valueOf(nameTxt.getText()).trim().length() > 0);
             }
 
             @Override
+            //This method is called to notify you that, the text has been changed.
             public void afterTextChanged(Editable editable) {
 
             }
         });
+
+        //Gives you the option to click on the image to add an image
         beerImageImgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,12 +129,14 @@ public class MainActivity extends Activity {
             }
         });
 
+       // Populates the list if there's any drinks.
         if (dbHandler.getBeersCount() != 0)
         Beers.addAll(dbHandler.getAllBeers());
 
         populateList();
     }
 
+    //When you click and hold over a drink in the list, this menu pops up.
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, view, menuInfo);
 
@@ -138,17 +148,17 @@ public class MainActivity extends Activity {
 
     }
 
+    //Methods following the menu above.
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            // Choose drink as standard-drink.
             case STANDARD:
-                // TODO: Implement standardizing a beer
                 ResourceManager.getInstance().cost_beer = Integer.parseInt(Beers.get(longClickedItemIndex).getBeerPrice());
                 break;
+            //Not yet created
             case EDIT:
-                //dbHandler.editBeer(Beers.get(longClickedItemIndex));
-                //Beers
-                // TODO: Implement editing a contact
                 break;
+            // Deletes a drink from the list.
             case DELETE:
                 dbHandler.deleteBeer(Beers.get(longClickedItemIndex));
                 Beers.remove(longClickedItemIndex);
@@ -159,6 +169,7 @@ public class MainActivity extends Activity {
         return super.onContextItemSelected(item);
     }
 
+    //Adds a list if no list exists.
     private boolean contactExists(Beer beer) {
         String name = beer.getBeerName();
         int contactCount = Beers.size();
@@ -179,21 +190,22 @@ public class MainActivity extends Activity {
         }
     }
 
+    // populates the list by demand
     private void populateList() {
         beerAdapter = new ContactListAdapter();
         beerListView.setAdapter(beerAdapter);
     }
 
-
+    //Gets the content of creator and puts it in the list.
     private class ContactListAdapter extends ArrayAdapter<Beer> {
         public ContactListAdapter(){
-            super (MainActivity.this, R.layout.listview_item, Beers);
+            super (BeerCreator.this, R.layout.beer_list, Beers);
         }
 
         @Override
         public View getView(int position,View view, ViewGroup parent) {
             if (view == null)
-                view = getLayoutInflater().inflate(R.layout.listview_item, parent, false);
+                view = getLayoutInflater().inflate(R.layout.beer_list, parent, false);
 
             Beer currentBeer = Beers.get(position);
 
@@ -209,15 +221,16 @@ public class MainActivity extends Activity {
         }
     }
 
+    //Takes you back to the Main Page
     public void buttonOnClick(View v) {
         Button orgBack=(Button) v;
-        startActivity(new Intent(getApplicationContext(),Activity2.class));
+        startActivity(new Intent(getApplicationContext(),Main_Activity.class));
         finish();
     }
-
+    //Takes you back to the Main Page
     public void buttonOnClick2(View v) {
         Button BeerBack=(Button) v;
-        startActivity(new Intent(getApplicationContext(),Activity2.class));
+        startActivity(new Intent(getApplicationContext(),Main_Activity.class));
         finish();
     }
 

@@ -20,6 +20,8 @@ import java.util.List;
 /**
  * Created by steff_000 on 07.09.2015.
  */
+
+//something
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static String DB_PATH = "data/data/com.example.beerorganizer/databases/";
@@ -43,12 +45,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-    //http://developer.android.com/training/basics/data-storage/databases.html
-    // Trenger en methode som laster inn/ leser inn data fra forrige gang appen kjørte, eller lager ny db om det er første gang den blir kjørt.
-    //getWritableDatabase() or getReadableDatabase() sqlite metoder.
-    //public void ReadableDatabase(SQLiteDatabase db) {
 
-   // }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -158,7 +155,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void createDrink(DrinkList drinklist) {
+    public void createDrink(Drink drinklist) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -185,24 +182,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return beer;
     }
 
-    public DrinkList getDrink(int id) {
+    public Drink getDrink(int id) {
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_DRINKS, new String[] {KEY_DRINK_ID, KEY_DRINK_NAME, KEY_DRINK_PRICE, KEY_DRINK_STORE, KEY_IMAGEURI}, KEY_DRINK_ID + "=?", new String[] { String.valueOf(id)}, null, null, null, null );
         if (cursor != null)
             cursor.moveToFirst();
 
-        DrinkList drinkList = new DrinkList(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Uri.parse(cursor.getString(4)));
+        Drink drink = new Drink(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Uri.parse(cursor.getString(4)));
         db.close();
         cursor.close();
-        return drinkList;
+        return drink;
     }
 
-    // TODO: add editBeer function
-   // public void editBeer(Beer beer) {
-   //     SQLiteDatabase db = getWritableDatabase();
-   //     db.update(TABLE_BEERS, KEY_BEER_ID, KEY_BEER_NAME, KEY_BEER_PRICE, KEY_BEER_STORE, KEY_IMAGEURI)
-   // }
+
 
     public void deleteBeer(Beer beer) {
         SQLiteDatabase db = getWritableDatabase();
@@ -210,9 +203,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteDrink(DrinkList drinkList) {
+    public void deleteDrink(Drink drink) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE_DRINKS, KEY_DRINK_ID + "=?", new String[]{String.valueOf(drinkList.getId())});
+        db.delete(TABLE_DRINKS, KEY_DRINK_ID + "=?", new String[]{String.valueOf(drink.getId())});
         db.close();
     }
 
@@ -256,17 +249,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int updateDrink(DrinkList drinkList) {
+    public int updateDrink(Drink drink) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(KEY_DRINK_NAME, drinkList.getDrinkName());
-        values.put(KEY_DRINK_PRICE, drinkList.getDrinkPrice());
-        values.put(KEY_DRINK_STORE, drinkList.getDrinkStore());
-        values.put(KEY_IMAGEURI, drinkList.getImageUri().toString());
+        values.put(KEY_DRINK_NAME, drink.getDrinkName());
+        values.put(KEY_DRINK_PRICE, drink.getDrinkPrice());
+        values.put(KEY_DRINK_STORE, drink.getDrinkStore());
+        values.put(KEY_IMAGEURI, drink.getImageUri().toString());
 
-        int rowsAffected = db.update(TABLE_DRINKS, values, KEY_DRINK_ID + "=?", new String[]{String.valueOf(drinkList.getId())});
+        int rowsAffected = db.update(TABLE_DRINKS, values, KEY_DRINK_ID + "=?", new String[]{String.valueOf(drink.getId())});
         db.close();
 
         return rowsAffected;
@@ -288,13 +281,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return beers;
     }
 
-    public List<DrinkList> getAllDrinks() {
-        List<DrinkList> drinks = new ArrayList<DrinkList>();
+    public List<Drink> getAllDrinks() {
+        List<Drink> drinks = new ArrayList<Drink>();
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_DRINKS, null);
         if(cursor.moveToFirst()) {
             do {
-                drinks.add(new DrinkList(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Uri.parse(cursor.getString(4))));
+                drinks.add(new Drink(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Uri.parse(cursor.getString(4))));
             }
             while (cursor.moveToNext());
         }
