@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class Activity2 extends AppCompatActivity {
 
-
+    //kommenter her au
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ public class Activity2 extends AppCompatActivity {
 
 
 
-        //BeerButton
+        //countButton: 'if' Says that you have to choose a beer if the value of cost_beer = 0. 'Else' will add value to the counter and a sum to the beer that you have chosen when you press the button.
         countButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -70,6 +70,7 @@ public class Activity2 extends AppCompatActivity {
             }
         });
 
+        //This is the same code as the above, only with drinks instead of beer.
         drinkButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -93,6 +94,7 @@ public class Activity2 extends AppCompatActivity {
             }
         });
 
+        //This button resets the counter and the sum of the above classes.
         resetButton.setOnClickListener(new View.OnClickListener() {
 
         public void onClick (View view) {
