@@ -55,7 +55,7 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tilbake"
+                        android:text="Back to Main Page"
                         android:id="@+id/beerBack"
                         android:layout_gravity="center_horizontal"
                         android:singleLine="false"
@@ -130,7 +130,7 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tilbake"
+                        android:text="Back to Main Page"
                         android:id="@+id/orgBack"
                         android:layout_gravity="center_horizontal"
                         android:onClick="buttonOnClick" />

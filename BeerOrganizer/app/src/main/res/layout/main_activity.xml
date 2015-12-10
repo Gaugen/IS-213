@@ -71,6 +71,16 @@
             android:layout_alignLeft="@+id/chooseDrinkBtn"
             android:layout_alignStart="@+id/chooseDrinkBtn" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logg"
+            android:id="@+id/loggButton"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="loggOnClick" />
+
     </RelativeLayout>
 
     <TextView

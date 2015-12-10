@@ -154,7 +154,7 @@ public class DrinkCreator extends Activity {
         switch (item.getItemId()) {
             // Choose drink as standard-drink.
             case STANDARD:
-                // TODO: Implement standardizing a beer
+                // TODO: Implement standardizing a drink
                 ResourceManager.getInstance().cost_drink = Integer.parseInt(Drinks.get(longClickedItemIndex).getDrinkPrice());
                 break;
             // Not yet created
