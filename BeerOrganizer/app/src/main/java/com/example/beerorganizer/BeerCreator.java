@@ -129,7 +129,7 @@ public class BeerCreator extends Activity {
             }
         });
 
-       // Populates the list if there's any drinks.
+       // Populates the list if there's any beers.
         if (dbHandler.getBeersCount() != 0)
         Beers.addAll(dbHandler.getAllBeers());
 

@@ -21,7 +21,7 @@ import java.util.List;
  * Created by steff_000 on 07.09.2015.
  */
 
-//something
+    //Defines two tables, with fields.
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static String DB_PATH = "data/data/com.example.beerorganizer/databases/";
@@ -46,20 +46,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
+    //Creates the two tables, one for beers, then another for drinks.
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_BEERS + "(" + KEY_BEER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_BEER_NAME + " TEXT," + KEY_BEER_PRICE + " TEXT," + KEY_BEER_STORE + " TEXT," + KEY_IMAGEURI + " TEXT)");
         db.execSQL("CREATE TABLE " + TABLE_DRINKS + "(" + KEY_DRINK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_DRINK_NAME + " TEXT," + KEY_DRINK_PRICE + " TEXT," + KEY_DRINK_STORE + " TEXT," + KEY_IMAGEURI + " TEXT)");
     }
-
+    //Upgrades the table if you add/rename or remove columns and populates the a new table. Drops the old table if no exceptions occur.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BEERS + TABLE_DRINKS);
 
         onCreate(db);
     }
-
+    //Keeps order when invoking the methods, preventing conflicts by not allowing them to make changes in the database at the same time.
     @Override
     public synchronized void close(){
         if(myDB!=null){
@@ -69,7 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /***
-     * Check if the database is exist on device or not
+     * Check if the database exists on device or not
      * @return
      */
     private boolean checkDataBase() {
@@ -140,7 +140,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     
-
+    //Adds a beer to the database
     public void createBeer(Beer beer) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -154,7 +154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_BEERS, null, values);
         db.close();
     }
-
+    //Adds a drink to the database
     public void createDrink(Drink drinklist) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -168,7 +168,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_DRINKS, null, values);
         db.close();
     }
-
+    //Populates beerList in BeerCreator (Gets values from the beer table)
     public Beer getBeer(int id) {
         SQLiteDatabase db = getReadableDatabase();
 
@@ -181,7 +181,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return beer;
     }
-
+    //Populates drinkList in DrinkCreator (Gets values from the drink table)
     public Drink getDrink(int id) {
         SQLiteDatabase db = getReadableDatabase();
 
@@ -196,22 +196,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-
+    //Deletes beer from table
     public void deleteBeer(Beer beer) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_BEERS, KEY_BEER_ID + "=?", new String[]{String.valueOf(beer.getId())});
         db.close();
     }
-
+    //Deletes drink from table
     public void deleteDrink(Drink drink) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_DRINKS, KEY_DRINK_ID + "=?", new String[]{String.valueOf(drink.getId())});
         db.close();
     }
 
-
+    //Counts objects from TABLE_BEERS
     public int getBeersCount(){
-        //SELECT * FROM CONTACTS
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_BEERS, null);
         int count = cursor.getCount();
@@ -220,9 +219,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return count;
     }
-
+    //Counts objects from TABLE_DRINKS
     public int getDrinksCount(){
-        //SELECT * FROM CONTACTS
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_DRINKS, null);
         int count = cursor.getCount();
@@ -231,7 +229,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return count;
     }
-
+    //Replaces old values with new values of the chosen beer
     public int updateBeer(Beer beer) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -248,7 +246,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return rowsAffected;
 
     }
-
+    //Replaces old values with new values of the chosen drink
     public int updateDrink(Drink drink) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -265,7 +263,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return rowsAffected;
 
     }
-
+    //Creates ArrayList Beer which contains all objects with values from TABLE_BEERS
     public List<Beer> getAllBeers() {
         List<Beer> beers = new ArrayList<Beer>();
         SQLiteDatabase db = getWritableDatabase();
@@ -280,7 +278,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return beers;
     }
-
+    //Creates ArrayList Drink which contains all objects with values from TABLE_DRINKS
     public List<Drink> getAllDrinks() {
         List<Drink> drinks = new ArrayList<Drink>();
         SQLiteDatabase db = getWritableDatabase();
